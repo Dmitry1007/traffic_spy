@@ -32,8 +32,23 @@ DatabaseCleaner.strategy = :truncation, {except: %w[public.schema_migrations]}
 
 
 # with the minitest-around gem, this may be used instead:
-class Minitest::Spec
-  around do |tests|
-    DatabaseCleaner.cleaning(&tests)
+
+class ControllerTest < Minitest::Test
+  include Rack::Test::Methods
+
+  def app
+    TrafficSpy::Server
   end
+
+  def setup
+    DatabaseCleaner.start
+  end
+
+  def teardown
+    DatabaseCleaner.clean
+  end
+
+  # around do |tests|
+  #   DatabaseCleaner.cleaning(&tests)
+  # end
 end
