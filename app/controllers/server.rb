@@ -11,9 +11,9 @@ module TrafficSpy
     end
 
     post '/sources' do
-      client = TrafficSpy::Client.new(params)
-      client.save
-      {identifier: client.identifier}.to_json
+      parsed_source = ParseSource.new(params)
+      status parsed_source.status
+      body parsed_source.body
     end
     
     post '/sources/:identifier/data' do
