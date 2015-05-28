@@ -17,7 +17,9 @@ module TrafficSpy
     end
     
     post '/sources/:identifier/data' do
-      TrafficSpy::ParsePayload.new(params[:payload])
+      parsed_source = TrafficSpy::ParsePayload.new(params[:payload]).validate
+      status parsed_source.status
+      body parsed_source.body
     end
   end
 end
