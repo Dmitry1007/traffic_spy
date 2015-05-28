@@ -1,12 +1,13 @@
 module TrafficSpy
   class ParseSource
     def initialize(params)
+      # binding.pry
       @source = Source.new(identifier: params["identifier"],
-                           rootUrl:   params["rootUrl"])
+                             root_url:   params["rootUrl"])
     end
 
     def status
-      if @source[:identifier] == nil || @source[:rootUrl] == nil
+      if @source[:identifier] == nil || @source[:root_url] == nil
         400
       elsif @source.save
         200
