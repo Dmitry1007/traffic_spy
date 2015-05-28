@@ -7,7 +7,7 @@ class RegistrationTest < ControllerTest
     s = TrafficSpy::Source.last
   
     assert_equal "jumpstartlab", s.identifier
-    assert_equal "http://jumpstartlab.com", s.rootUrl
+    assert_equal "http://jumpstartlab.com", s.root_url
     
     assert_equal 200, last_response.status
     assert_equal "{'identifier':'jumpstartlab'}", last_response.body
@@ -30,7 +30,7 @@ class RegistrationTest < ControllerTest
     assert_equal original_count, TrafficSpy::Source.count
     
     assert_equal 400, last_response.status
-    assert_equal "Rooturl can't be blank", last_response.body
+    assert_equal "Root url can't be blank", last_response.body
   end
   
   def test_403_error_when_the_identifier_already_exists
