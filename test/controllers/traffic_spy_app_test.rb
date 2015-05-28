@@ -53,24 +53,4 @@ class RegistrationTest < ControllerTest
     assert_equal "That application url does not exist", last_response.body
     assert_equal 0, (final_count - initial_count)
   end
-  
-  def test_it_returns_a_403_error_when_a_duplicate_payload_is_submitted
-    initial_count = TrafficSpy::Payload.count
-    
-    post '/sources/jumpstartlab/data', payload
-    
-    intermediate_count = TrafficSpy::Payload.count
-
-    assert_equal 200, last_response.status
-    assert_equal 1, intermediate_count - initial_count
-    assert_equal "http://jumpstartlab.com/blog", TrafficSpy::Payload.first.url
-    
-    post '/sources/jumpstartlab/data', payload
-    
-    final_count = TrafficSpy::Payload.count
-    
-    assert_equal 403, last_response.status
-    assert_equal "This payload has already been received", last_response.body
-    assert_equal final_count, intermediate_count
-  end
 end

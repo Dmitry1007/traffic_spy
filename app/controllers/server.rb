@@ -19,19 +19,6 @@ module TrafficSpy
     post '/sources/:identifier/data' do
       payload = TrafficSpy::Payload.new(request.params)
       payload.save
-      if duplicate_request_check(request.params)
-        status 403
-        "whatever"
-      else
-        
-      end
-    end
-    
-    def duplicate_request_check(params)
-      binding.pry
-      TrafficSpy::Payload.any? do |p|
-        p.to_h == params
-      end
     end
   end
 end
