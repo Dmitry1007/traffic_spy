@@ -21,5 +21,9 @@ module TrafficSpy
       status parsed_source.status
       body parsed_source.body
     end
+    
+    get '/sources/:identifier' do
+      erb :dashboard
+    end
   end
 end

@@ -2,7 +2,7 @@ module TrafficSpy
   class ParseSource
     def initialize(params)
       @source = Source.new(identifier: params["identifier"],
-                             root_url:   params["rootUrl"])
+                             root_url: params["rootUrl"])
     end
 
     def reply
