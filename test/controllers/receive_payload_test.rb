@@ -28,7 +28,7 @@ class RegistrationTest < ControllerTest
 
     assert_equal 200, last_response.status
     assert_equal 1, (final_count - initial_count)
-    assert_equal "http://jumpstartlab.com/blog", TrafficSpy::Payload.first.url
+    assert_equal 1, TrafficSpy::Payload.first.id
   end
 
   def test_it_returns_a_403_error_when_the_url_path_is_invalid

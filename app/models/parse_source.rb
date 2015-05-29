@@ -5,7 +5,7 @@ module TrafficSpy
                              root_url: params["rootUrl"])
     end
 
-    def reply
+    def status
       if @source[:identifier] == nil || @source[:root_url] == nil
         400
       elsif @source.save

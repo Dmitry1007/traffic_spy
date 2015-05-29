@@ -1,3 +1,5 @@
+require 'pry'
+
 module TrafficSpy
   class Server < Sinatra::Base
     get '/' do
@@ -23,7 +25,7 @@ module TrafficSpy
     end
     
     get '/sources/:identifier' do
-      @urls = Url.all
+      @urls = TrafficSpy::Url.all
       erb :dashboard
     end
   end

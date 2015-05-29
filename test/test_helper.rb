@@ -65,6 +65,7 @@ end
 
 class FeatureTest < Minitest::Test
   include Capybara::DSL
+  include Rack::Test::Methods
   include Helpers
 
   def app
