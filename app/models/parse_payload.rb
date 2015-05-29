@@ -8,10 +8,6 @@ module TrafficSpy
       @params = params
     end
     
-    def create_url(param)
-      Url.create(param)
-    end
-    
     def validate
       if params.blank?
         @status = 400
@@ -23,13 +19,12 @@ module TrafficSpy
                                referred_by:       parsed_params["referredBy"],
                                request_type:      parsed_params["requestType"],
                                event_name:        parsed_params["eventName"],
-                               user_agent:        parsed_params["userAgent"],
                                resolution_width:  parsed_params["resolutionWidth"],
                                resolution_height: parsed_params["resolutionHeight"],
                                ip:                parsed_params["ip"],
-                               sha:               Digest::SHA1.hexdigest(params))
+                               sha:               Digest::SHA1.hexdigest(params),
+                               url:               Url.find_or_create_by(url: parsed_params["url"]))
         if @payload.save
-          @payload.create_url(url: parsed_params["url"])
           @status = 200
         else
           @status = 403
