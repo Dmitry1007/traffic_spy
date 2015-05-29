@@ -14,6 +14,6 @@ class ClientViewsUrlsTest < FeatureTest
     create_payloads
     visit '/sources/jumpstartlab'
     
-    assert page.has_content? ""
+    assert page.has_content? "http://jumpstartlab.com/blog"
   end
 end

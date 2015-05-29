@@ -23,6 +23,7 @@ module TrafficSpy
     end
     
     get '/sources/:identifier' do
+      @urls = Url.all
       erb :dashboard
     end
   end
