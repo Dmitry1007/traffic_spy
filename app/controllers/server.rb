@@ -1,3 +1,5 @@
+require 'pry'
+
 module TrafficSpy
   class Server < Sinatra::Base
     get '/' do
@@ -20,6 +22,11 @@ module TrafficSpy
       parsed_source = TrafficSpy::ParsePayload.new(params[:payload]).validate
       status parsed_source.status
       body parsed_source.body
+    end
+    
+    get '/sources/:identifier' do
+      @urls = TrafficSpy::Url.all
+      erb :dashboard
     end
   end
 end

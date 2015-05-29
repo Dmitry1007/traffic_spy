@@ -8,14 +8,17 @@ module TrafficSpy
       @params = params
     end
     
+    def create_url(param)
+      Url.create(param)
+    end
+    
     def validate
       if params.blank?
         @status = 400
         @body = "Payload cannot be empty"
       else
         parsed_params = JSON.parse(params)
-        @payload = Payload.new(url:               parsed_params["url"],
-                               requested_at:      parsed_params["requestedAt"],
+        @payload = Payload.new(requested_at:      parsed_params["requestedAt"],
                                responded_in:      parsed_params["respondedIn"],
                                referred_by:       parsed_params["referredBy"],
                                request_type:      parsed_params["requestType"],
@@ -26,6 +29,7 @@ module TrafficSpy
                                ip:                parsed_params["ip"],
                                sha:               Digest::SHA1.hexdigest(params))
         if @payload.save
+          @payload.create_url(url: parsed_params["url"])
           @status = 200
         else
           @status = 403
