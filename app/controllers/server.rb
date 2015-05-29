@@ -25,7 +25,9 @@ module TrafficSpy
     end
     
     get '/sources/:identifier' do
-      @urls = TrafficSpy::Url.all
+      @source = Source.find_by(:identifier => params["identifier"])
+      # @urls = TrafficSpy::Url
+      # @ua_browsers = TrafficSpy::Source.browsers
       erb :dashboard
     end
   end
