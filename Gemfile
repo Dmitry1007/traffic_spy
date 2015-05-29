@@ -5,6 +5,7 @@ gem 'pg'
 gem 'activerecord'
 gem 'sinatra-activerecord'
 gem 'json'
+gem 'user_agent_parser'
 
 group :development, :test do
   gem 'shotgun'
@@ -16,7 +17,6 @@ group :development, :test do
   gem 'useragent'
   gem 'database_cleaner'
   gem 'pry'
-  gem 'user_agent_parser'
 end
 
 group :evaluations do

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150529214942) do
+ActiveRecord::Schema.define(version: 20150529230029) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20150529214942) do
     t.text     "sha"
     t.integer  "url_id"
     t.integer  "source_id"
+    t.text     "user_agent_id"
   end
 
   create_table "sources", force: :cascade do |t|
@@ -51,6 +52,7 @@ ActiveRecord::Schema.define(version: 20150529214942) do
     t.text     "operating_system"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "user_agent"
   end
 
 end
