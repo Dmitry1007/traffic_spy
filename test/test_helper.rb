@@ -96,3 +96,7 @@ class ControllerTest < Minitest::Test
     DatabaseCleaner.clean
   end
 end
+
+class ModelTest < Minitest::Test
+
+end

@@ -4,6 +4,6 @@ module TrafficSpy
     validates_presence_of :sha
     belongs_to :url
     belongs_to :source
-    # belongs_to :user_agent
+    belongs_to :user_agent
   end
 end
