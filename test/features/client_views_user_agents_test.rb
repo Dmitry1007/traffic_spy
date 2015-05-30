@@ -11,7 +11,7 @@ class ClientViewsUserAgentTest < FeatureTest
       source.payloads.create({
       :url => TrafficSpy::Url.create(url: "http://jumpstartlab.com/blog"),
       :requested_at => "2013-02-16 21:38:28 -0700",
-      :responded_in => 37,
+      :responded_in =>  TrafficSpy::RespondedIn.create(responded_in: 37),
       :referred_by => "http://jumpstartlab.com",
       :request_type => "GET",
       :event_name => "socialLogin",
@@ -25,11 +25,4 @@ class ClientViewsUserAgentTest < FeatureTest
     assert page.has_content? "Chrome 24.0.1309"
     assert page.has_content? "Mac OS X 10.8.2"
   end
-
 end
-
-# As a client
-# When I visit http://yourapplication:port/sources/IDENTIFIER, 
-# where IDENTIFIER is my unique pre-established identifier
-# I can view Web browser breakdown across all requests (userAgent) 
-# and OS breakdown across all requests (userAgent)

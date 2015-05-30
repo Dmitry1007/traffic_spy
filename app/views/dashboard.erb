@@ -16,5 +16,11 @@
   <% end %>
 </div>
 
+<div id="responded_ins">
+  <% @source.responded_ins.each do |responded_in| %>
+    <h3><%= responded_in.responded_in %></h3>
+  <% end %>
+</div>
+
 
 </body>
