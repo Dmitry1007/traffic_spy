@@ -1,5 +1,7 @@
 require_relative '../test_helper'
 
+
+=begin
 class RespondedInTest < FeatureTest
   def test_it_displays_response_information_in_browser
 
@@ -25,7 +27,6 @@ class RespondedInTest < FeatureTest
 
 end
 
-=begin
 
 User Story:
 As a client
