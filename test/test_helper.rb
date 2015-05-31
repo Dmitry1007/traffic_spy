@@ -73,3 +73,4 @@ end
 class ModelTest < Minitest::Test
 
 end
+
