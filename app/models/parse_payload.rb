@@ -1,11 +1,17 @@
+require 'digest/sha1'
+require 'useragent'
+
 module TrafficSpy
   class ParsePayload
-    attr_reader :status, :body, :params
+    attr_accessor :status, :body
     
-    def initialize(params)
-      @status = nil
-      @body = nil
-      @params = params
+    def initialize(json_params, source)
+      parse(json_params, source)
+    end
+    
+    
+    def parse(json_params, source)
+      
     end
     
     def validate
