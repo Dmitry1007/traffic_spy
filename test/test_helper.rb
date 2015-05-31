@@ -71,5 +71,17 @@ class ControllerTest < Minitest::Test
 end
 
 class ModelTest < Minitest::Test
+  include Rack::Test::Methods
 
+  def app
+    TrafficSpy::Server
+  end
+
+  def setup
+    DatabaseCleaner.start
+  end
+
+  def teardown
+    DatabaseCleaner.clean
+  end
 end
