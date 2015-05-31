@@ -6,7 +6,7 @@
 <h3>Url breakdown:</h3>
 <ol>
   <% @dataset.urls_sorted.each do |url, count| %>
-    <li><a href="<%= @dataset.path(url) %>"><%= url %></a> : <%= count %> request(s)</li>
+    <li id="url_link"><a href="<%= @dataset.path(url) %>"><%= url %></a> : <%= count %> request(s)</li>
   <%end %>
 </ol>
 

@@ -48,6 +48,20 @@ class ClientViewsUrlsTest < FeatureTest
     assert page.has_content? "http://jumpstartlab.com/blog had an average response time of 37 seconds"
   end
 
+  def test_url_link_is_present
+    create_source("jumpstartlab", "http=>//jumpstartlab.com")
+    create_payloads
+    visit '/sources/jumpstartlab'
 
+    assert find_link('http://jumpstartlab.com/blog')
+  end
 
+  def test_url_link_displays_information_for_that_url
+    create_source("jumpstartlab", "http=>//jumpstartlab.com")
+    create_payloads
+    visit '/sources/jumpstartlab'
+    click_link('http://jumpstartlab.com/blog')
+
+    assert page.has_content? "Here's the data about that url:"
+  end
 end
