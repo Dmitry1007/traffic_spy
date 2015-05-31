@@ -48,20 +48,51 @@ class ClientViewsUrlsTest < FeatureTest
     assert page.has_content? "http://jumpstartlab.com/blog had an average response time of 37 seconds"
   end
 
-  def test_url_link_is_present
+  def test_url_breakdown_link_is_present
     create_source("jumpstartlab", "http=>//jumpstartlab.com")
     create_payloads
     visit '/sources/jumpstartlab'
 
-    assert find_link('http://jumpstartlab.com/blog')
+    assert find_link('url-breakdown-link')
   end
 
-  def test_url_link_displays_information_for_that_url
+  def test_url_breakdown_link_displays_breakdown_information_for_that_url
     create_source("jumpstartlab", "http=>//jumpstartlab.com")
     create_payloads
     visit '/sources/jumpstartlab'
-    click_link('http://jumpstartlab.com/blog')
+    click_link('url-breakdown-link')
 
     assert page.has_content? "Here's the data about that url:"
+    assert page.has_content? "Longest response time:"
+    assert page.has_content? "Shortest response time:"
+    assert page.has_content? "Average response time:"
+    assert page.has_content? "HTTP verbs used:"
+    assert page.has_content? "Most popular referrers:"
+    assert page.has_content? "Most popular browsers"
+    assert page.has_content? "Most popular operating systems"
+  end
+
+  def test_url_average_response_link_is_present
+    create_source("jumpstartlab", "http=>//jumpstartlab.com")
+    create_payloads
+    visit '/sources/jumpstartlab'
+
+    assert find_link('url-average-response-link')
+  end
+
+  def test_url_averages_link_displays_average_information_for_that_url
+    create_source("jumpstartlab", "http=>//jumpstartlab.com")
+    create_payloads
+    visit '/sources/jumpstartlab'
+    click_link('url-average-response-link')
+
+    assert page.has_content? "Here's the data about that url:"
+    assert page.has_content? "Longest response time:"
+    assert page.has_content? "Shortest response time:"
+    assert page.has_content? "Average response time:"
+    assert page.has_content? "HTTP verbs used:"
+    assert page.has_content? "Most popular referrers:"
+    assert page.has_content? "Most popular browsers"
+    assert page.has_content? "Most popular operating systems"
   end
 end
