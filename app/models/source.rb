@@ -1,3 +1,5 @@
+require 'groupdate'
+
 module TrafficSpy
   class Source < ActiveRecord::Base
     attr_reader :url
@@ -12,6 +14,10 @@ module TrafficSpy
       else
         @url = root_url
       end
+    end
+    
+    def establish_event(event)
+      @event = event
     end
 
     def urls
@@ -52,6 +58,18 @@ module TrafficSpy
     
     def most_popular_operating_systems
       payloads.where(url: @url).group(:operating_system).order('operating_system desc').count(:operating_system).first(3)
+    end
+
+    def event_names
+      payloads.group(:event_name).count.sort_by{|_,v|v}.reverse
+    end
+
+    def total_events_received(event_name)
+      payloads.where(event_name: event_name).count
+    end
+
+    def hourly_events(event_name)
+      payloads.where(event_name: event_name).group_by_hour_of_day(:requested_at, format: "%l%p").count
     end
   end
 end

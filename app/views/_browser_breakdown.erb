@@ -1,0 +1,6 @@
+<h3>Web browser breakdown:</h3>
+<ul>
+  <% @dataset.breakdown_of_browser.each do |browser, count| %>
+    <li><%= browser %> : <%= count %> time(s)</li>
+  <% end %>
+</ul>
