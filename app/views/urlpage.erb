@@ -1,0 +1,45 @@
+<h1>Here's the data about that url:</h1>
+
+<h3>Longest response time:</h3>
+
+<p><%= @source.longest_response_time %> seconds</p>
+
+<h3>Shortest response time:</h3>
+
+<p><%= @source.shortest_response_time %> seconds</p>
+
+<h3>Average response time:</h3>
+
+<p><%= @source.average_response_time.to_i %> seconds</p>
+
+<h3>HTTP verbs used:</h3>
+
+<% @source.verbs_used.each do |verb_used| %>
+  <ul>
+    <li><%= verb_used %></li>
+  </ul>
+<% end %>
+
+<h3>Most popular referrers:</h3>
+
+<% @source.most_popular_referrers.each do |url, count| %>
+  <ul>
+    <li><%= url %></li>
+  </ul>
+<% end %>
+
+<h3>Most popular browsers:</h3>
+
+<% @source.most_popular_browsers.each do |browser, count| %>
+  <ul>
+    <li><%= browser %></li>
+  </ul>
+<% end %>
+
+<h3>Most popular operating systems:</h3>
+
+<% @source.most_popular_operating_systems.each do |operating_system, count| %>
+  <ul>
+    <li><%= operating_system %></li>
+  </ul>
+<% end %>

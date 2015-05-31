@@ -1,3 +1,5 @@
+require 'uri'
+
 module TrafficSpy
   class Dashboard
   attr_reader :source
@@ -36,6 +38,11 @@ module TrafficSpy
     
     def breakdown_of_avg_url_response_times
       source.payloads.group(:url).order('average_responded_in desc').average(:responded_in)
+    end
+    
+    def path(url)
+      uri = URI(url)
+      "/sources/#{source.identifier}/urls/#{uri.path}"
     end
   end
 end

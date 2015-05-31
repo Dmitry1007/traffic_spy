@@ -30,5 +30,11 @@ module TrafficSpy
       @dataset = Dashboard.new(source)
       erb @dataset.view
     end
+    
+    get '/sources/:identifier/urls/:path' do |identifier, path|
+      @source = Source.find_by(identifier: identifier)
+      @source.determine_path(path)
+      erb :urlpage
+    end
   end
 end
