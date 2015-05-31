@@ -1,0 +1,14 @@
+<body>
+<h1>Event breakdown</h1>
+
+<h3>Events received:</h3>
+
+<div id="events">
+  <ol>
+    <% @event_names.each do |event, _| %>
+      <li><a href="/sources/<%= @source.identifier %>/events/<%= event %>"><%= event %></a></li>
+    <% end %>
+  </ol>
+</div>
+
+</body>
