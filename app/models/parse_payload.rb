@@ -1,6 +1,6 @@
 require 'json'
 require 'digest/sha1'
-require 'useragent'
+require 'user_agent_parser'
 
 module TrafficSpy
   class ParsePayload
@@ -28,8 +28,7 @@ module TrafficSpy
     end
 
     def parse_user_agent(user_agent)
-      binding.pry
-      UserAgent.parse(user_agent)
+      UserAgentParser.parse(user_agent)
     end
     
     def establish_sha(some_string)
@@ -42,11 +41,10 @@ module TrafficSpy
       user_agent = parse_user_agent(payload_data["userAgent"])
       payload = Payload.new(url: payload_data["url"], # same as 'source.payloads.new'
         sha:sha,
-        source_id: source.id,
         responded_in: payload_data["respondedIn"],
         resolution: "#{payload_data["resolutionWidth"]} x #{payload_data["resolutionHeight"]}",
-        browser: user_agent.browser,
-        operating_system: user_agent.platform,
+        browser: user_agent.to_s,
+        operating_system: user_agent.os.to_s,
         requested_at: payload_data["requestedAt"],
         request_type: payload_data["requestType"],
         referred_by: payload_data["referredBy"],
