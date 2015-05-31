@@ -13,6 +13,9 @@ module TrafficSpy
     def parse(json_params, source)
       if established_source?(source)
         parse_payload(json_params)
+      else
+        @status = 403
+        @body = "Unregistered source" 
       end
     end
     
@@ -23,6 +26,11 @@ module TrafficSpy
     def parse_json(json_params)
       JSON.parse(json_params)
     end
+
+    def parse_user_agent(user_agent)
+      binding.pry
+      UserAgent.parse(user_agent)
+    end
     
     def establish_sha(some_string)
       Digest::SHA1.hexdigest(some_string) if some_string
@@ -30,25 +38,25 @@ module TrafficSpy
     
     def parse_payload(json_params)
       sha = establish_sha(json_params)
-      json_params ? data = parse_json(json_params) : data = {}
-      user_agent = UserAgent.parse(data["userAgent"])
-      payload = Payload.new(url: data["url"], # source.payloads.new
+      json_params ? payload_data = parse_json(json_params) : payload_data = {}
+      user_agent = parse_user_agent(payload_data["userAgent"])
+      payload = Payload.new(url: payload_data["url"], # same as 'source.payloads.new'
         sha:sha,
         source_id: source.id,
-        responded_in: data["respondedIn"],
-        resolution: "#{data['resolutionWidth']} x #{data['resolutionHeight']}",
+        responded_in: payload_data["respondedIn"],
+        resolution: "#{payload_data["resolutionWidth"]} x #{payload_data["resolutionHeight"]}",
         browser: user_agent.browser,
         operating_system: user_agent.platform,
-        requested_at: data["requestedAt"],
-        request_type: data["requestType"],
-        referred_by: data["referredBy"],
-        event_name: data["eventName"]
+        requested_at: payload_data["requestedAt"],
+        request_type: payload_data["requestType"],
+        referred_by: payload_data["referredBy"],
+        event_name: payload_data["eventName"]
       )
       payload.save ? @status = 200 : review(payload, sha)
     end
     
     def review(payload, sha)
-      if payload.url == nil
+      if payload.url == nil #perhaps not the best way to do this?
         @status = 400
         @body = "Payload cannot be empty"
       elsif

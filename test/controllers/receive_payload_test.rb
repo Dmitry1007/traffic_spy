@@ -22,7 +22,7 @@ class ReceivePayloadTest < ControllerTest
     final_count = TrafficSpy::Payload.count
     
     assert_equal 403, last_response.status
-    assert_equal "URL not recognized", last_response.body
+    assert_equal "Unregistered source", last_response.body
     assert_equal 0, final_count - initial_count
   end
   
