@@ -79,7 +79,6 @@ class ClientViewsUrlsTest < FeatureTest
     create_source("jumpstartlab", "http=>//jumpstartlab.com")
     create_payloads
     visit '/sources/jumpstartlab'
-
     find('.url-average-response-link')
   end
 
