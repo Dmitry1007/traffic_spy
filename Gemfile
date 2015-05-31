@@ -7,7 +7,6 @@ gem 'sinatra-activerecord'
 gem 'json'
 gem 'user_agent_parser'
 gem 'groupdate'
-gem 'sinatra-partial', require: 'sinatra-partial'
 
 group :development, :test do
   gem 'shotgun'
