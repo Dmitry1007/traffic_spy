@@ -12,7 +12,7 @@ module TrafficSpy
     
     def parse(json_params, source)
       if established_source?(source)
-        parse_payload(json_params)
+        parse_payload(json_params, source)
       else
         @status = 403
         @body = "Unregistered source" 
@@ -35,12 +35,13 @@ module TrafficSpy
       Digest::SHA1.hexdigest(some_string) if some_string
     end
     
-    def parse_payload(json_params)
+    def parse_payload(json_params, source)
       sha = establish_sha(json_params)
       json_params ? payload_data = parse_json(json_params) : payload_data = {}
       user_agent = parse_user_agent(payload_data["userAgent"])
       payload = Payload.new(url: payload_data["url"], # same as 'source.payloads.new'
         sha:sha,
+        source_id: source.id,
         responded_in: payload_data["respondedIn"],
         resolution: "#{payload_data["resolutionWidth"]} x #{payload_data["resolutionHeight"]}",
         browser: user_agent.to_s,
