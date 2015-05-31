@@ -6,7 +6,7 @@
 <h3>Url breakdown:</h3>
 <ol>
   <% @dataset.urls_sorted.each do |url, count| %>
-    <li><a href="<%= @dataset.path(url) %>"><%= url %></a> : <%= count %> request(s)</li>
+    <li><a href="<%= @dataset.path(url) %>" id="url-breakdown-link"><%= url %></a> : <%= count %> request(s)</li>
   <%end %>
 </ol>
 
@@ -34,7 +34,7 @@
 <h3>Average response times:</h3>
 <ul>
   <% @dataset.breakdown_of_avg_url_response_times.each do |url, time| %>
-    <li><%= url %> had an average response time of <%= time.to_i %> seconds</li>
+    <li><a href="<%= @dataset.path(url) %>" id="url-average-response-link"><%= url %></a> had an average response time of <%= time.to_i %> seconds</li>
   <% end %>
 </ul>
 
