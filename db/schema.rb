@@ -11,34 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150530195956) do
+ActiveRecord::Schema.define(version: 20150531033953) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "payloads", force: :cascade do |t|
-    t.text     "requested_at"
-    t.integer  "responded_in"
-    t.text     "referred_by"
-    t.text     "request_type"
-    t.text     "event_name"
-    t.text     "user_agent"
-    t.text     "resolution_width"
-    t.text     "resolution_height"
-    t.text     "ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.text     "sha"
-    t.integer  "url_id"
-    t.integer  "source_id"
-    t.integer  "responded_in_id"
-    t.integer  "user_agent_id"
-  end
-
-  create_table "responded_ins", force: :cascade do |t|
-    t.integer  "responded_in"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.text    "url"
+    t.integer "source_id"
+    t.integer "responded_in"
+    t.text    "resolution"
+    t.text    "browser"
+    t.text    "operating_system"
+    t.text    "requested_at"
+    t.text    "request_type"
+    t.text    "referred_by"
+    t.text    "event_name"
+    t.integer "sha"
   end
 
   create_table "sources", force: :cascade do |t|
@@ -46,21 +35,6 @@ ActiveRecord::Schema.define(version: 20150530195956) do
     t.text     "root_url"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text     "source"
-  end
-
-  create_table "urls", force: :cascade do |t|
-    t.text     "url"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "user_agents", force: :cascade do |t|
-    t.text     "browser"
-    t.text     "operating_system"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.text     "user_agent"
   end
 
 end

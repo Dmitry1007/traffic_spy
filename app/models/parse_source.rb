@@ -1,25 +1,34 @@
 module TrafficSpy
   class ParseSource
+    attr_accessor :status, :body
+    
     def initialize(params)
-      @source = Source.create(identifier: params["identifier"],
-                             root_url: params["rootUrl"])
+      create(params)
     end
 
-    def status
-      if @source[:identifier] == nil || @source[:root_url] == nil
-        400
-      elsif @source.save
-        200
+    def create(params)
+      source = Source.new({identifier: params[:identifier], root_url: params[:rootUrl]})
+      if source.save
+        @status = 200
+        @body = {"identifier":"#{source.identifier}"}.to_json
       else
-        403
+        review(source)
       end
     end
-
-    def body
-      if @source.save
-        "{'identifier':'#{@source[:identifier]}'}"
+    
+    def review(source)
+      if Source.exists?(identifier: source.identifier)
+        @status = 403
+        @body = "That identifier is already in use"
+      elsif source.identifier == nil && source.root_url == nil
+        @status = 400
+        @body = "Please enter an identifier and a root url"
+      elsif source.identifier == nil
+        @status = 400
+        @body = "Please enter an identifier"
       else
-        @source.errors.full_messages
+        @status = 400
+        @body = "Please enter a root url"
       end
     end
   end

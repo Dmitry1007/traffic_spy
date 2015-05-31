@@ -11,22 +11,36 @@ module TrafficSpy
       status 403
       "That application url does not exist"
     end
-
+    
     post '/sources' do
-      parsed_source = ParseSource.new(params)
-      status parsed_source.status
-      body parsed_source.body
+      source = TrafficSpy::ParseSource.new(params)
+      status source.status
+      body source.body
     end
     
-    post '/sources/:identifier/data' do
-      parsed_source = TrafficSpy::ParsePayload.new(params[:payload]).validate
-      status parsed_source.status
-      body parsed_source.body
+    post '/sources/:identifier/data' do |identifier|
+      source = Source.find_by(identifier: identifier)
+      payload = TrafficSpy::ParsePayload.new(params[:payload], source)
+      status payload.status
+      body payload.body
     end
     
-    get '/sources/:identifier' do
-      @source = Source.find_by(:identifier => params["identifier"])
-      erb :dashboard
+    get '/sources/:identifier' do |identifier|
+      source = Source.find_by(identifier: identifier)
+      @dataset = Dashboard.new(source)
+      erb @dataset.view
+    end
+    
+    get '/sources/:identifier/urls/:path' do |identifier, path|
+      @source = Source.find_by(identifier: identifier)
+      @source.determine_path(path)
+      erb :urlpage
+    end
+    
+    get '/sources/:identifier/events' do |identifier|
+      source = Source.find_by(identifier: identifier)
+      @dataset = Dashboard.new(source)
+      erb :eventpage
     end
   end
 end
