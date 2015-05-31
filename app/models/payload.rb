@@ -5,5 +5,6 @@ module TrafficSpy
     belongs_to :url
     belongs_to :source
     belongs_to :user_agent
+    belongs_to :responded_in
   end
 end

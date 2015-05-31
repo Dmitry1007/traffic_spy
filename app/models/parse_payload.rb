@@ -15,7 +15,7 @@ module TrafficSpy
       else
         parsed_params = JSON.parse(params)
         @payload = Payload.new(requested_at:      parsed_params["requestedAt"],
-                               responded_in:      parsed_params["respondedIn"],
+                               responded_in:      RespondedIn.find_or_create_by(responded_in: parsed_params["respondedIn"]),
                                referred_by:       parsed_params["referredBy"],
                                request_type:      parsed_params["requestType"],
                                event_name:        parsed_params["eventName"],
@@ -25,6 +25,7 @@ module TrafficSpy
                                sha:               Digest::SHA1.hexdigest(params),
                                url:               Url.find_or_create_by(url: parsed_params["url"]))
         if @payload.save
+
           @status = 200
         else
           @status = 403

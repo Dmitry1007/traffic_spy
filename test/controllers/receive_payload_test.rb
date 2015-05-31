@@ -1,6 +1,6 @@
 require './test/test_helper'
 
-class RegistrationTest < ControllerTest
+class ReceivePayloadTest < ControllerTest
   
   def setup
     @valid_payload = 'payload={

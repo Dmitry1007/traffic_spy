@@ -11,5 +11,9 @@ module TrafficSpy
     def user_agents
       payloads.map { |payload| payload.user_agent }
     end
+
+    def responded_ins
+      payloads.map {|payload| payload.responded_in}
+    end
   end
 end
