@@ -3,18 +3,10 @@
   Welcome to TrafficSpy!
 </h1>
 
-<div id="urls">
+<ol id="urls">
   <% @source.urls.each do |url| %>
-    <h3><%= url.url %></h3>
+    <li><%= url.url %></li>
   <% end %>
-</div>
-
-<div id="user_agents">
-  <% @source.user_agents.each do |user_agent| %>
-    <h3><%= user_agent.browser %></h3>
-    <h3><%= user_agent.operating_system %></h3>
-  <% end %>
-</div>
-
+</ol>
 
 </body>
