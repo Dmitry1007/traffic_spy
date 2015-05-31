@@ -12,10 +12,10 @@ class ClientViewsUrlsTest < FeatureTest
   def test_a_dashboard_includes_the_urls_from_a_known_source
     source = TrafficSpy::Source.create({:identifier => "jumpstartlab", :root_url => "http://jumpstartlab.com"})
 
-      source.payloads.create({ 
+      source.payloads.create({
       :url => TrafficSpy::Url.create(url: "http://jumpstartlab.com/blog"),
       :requested_at => "2013-02-16 21:38:28 -0700",
-      :responded_in => 37,
+      :responded_in => TrafficSpy::RespondedIn.create(responded_in: 37),
       :referred_by => "http://jumpstartlab.com",
       :request_type => "GET",
       :event_name => "socialLogin",
@@ -25,9 +25,7 @@ class ClientViewsUrlsTest < FeatureTest
       :ip => "63.29.38.211",
       :sha => "4857"})
 
-    # puts s.errors.full_messages
     visit '/sources/jumpstartlab'
-    # save_and_open_page
     assert page.has_content? "http://jumpstartlab.com/blog"
   end
 end
