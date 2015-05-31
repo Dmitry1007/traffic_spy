@@ -49,12 +49,12 @@ class ClientViewsUrlsTest < FeatureTest
   end
 
   def test_url_breakdown_link_is_present
-    skip
+
     create_source("jumpstartlab", "http=>//jumpstartlab.com")
     create_payloads
     visit '/sources/jumpstartlab'
 
-    assert find_link('url-link')
+    find('.url-breakdown-link')
   end
 
   def test_url_breakdown_link_displays_breakdown_information_for_that_url
@@ -62,25 +62,29 @@ class ClientViewsUrlsTest < FeatureTest
     create_source("jumpstartlab", "http=>//jumpstartlab.com")
     create_payloads
     visit '/sources/jumpstartlab'
-    click_link('url-link')
 
-    assert page.has_content? "Here's the data about that url:"
-    assert page.has_content? "Longest response time:"
-    assert page.has_content? "Shortest response time:"
-    assert page.has_content? "Average response time:"
-    assert page.has_content? "HTTP verbs used:"
-    assert page.has_content? "Most popular referrers:"
-    assert page.has_content? "Most popular browsers"
-    assert page.has_content? "Most popular operating systems"
+    find('#url-breakdown-link').click
+    save_and_open_page
+
+    assert page.has_content? "Data for http://jumpstartlab.com/blog:"
+
+    # assert page.has_content? "Data for http://jumpstartlab.com/blog:"
+    # assert page.has_content? "Longest response time:"
+    # assert page.has_content? "Shortest response time:"
+    # assert page.has_content? "Average response time:"
+    # assert page.has_content? "HTTP verbs used:"
+    # assert page.has_content? "Most popular referrers:"
+    # assert page.has_content? "Most popular browsers"
+    # assert page.has_content? "Most popular operating systems"
   end
 
   def test_url_average_response_link_is_present
-    skip
+
     create_source("jumpstartlab", "http=>//jumpstartlab.com")
     create_payloads
     visit '/sources/jumpstartlab'
 
-    assert find_link('url-link')
+    find('.url-average-response-link')
   end
 
   def test_url_averages_link_displays_average_information_for_that_url
