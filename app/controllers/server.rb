@@ -18,11 +18,17 @@ module TrafficSpy
       body source.body
     end
     
-    post'/sources/:identifier/data' do |identifier|
+    post '/sources/:identifier/data' do |identifier|
       source = Source.find_by(identifier: identifier)
       payload = TrafficSpy::ParsePayload.new(params[:payload], source)
       status payload.status
       body payload.body
+    end
+    
+    get '/sources/:identifier' do |identifier|
+      source = Source.find_by(identifier: identifier)
+      @dataset = Dashboard.new(source)
+      erb @dataset.view
     end
   end
 end

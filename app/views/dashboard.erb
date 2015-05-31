@@ -3,23 +3,10 @@
   Welcome to TrafficSpy!
 </h1>
 
-<ol id="urls">
-  <% @source.urls.each do |url| %>
-    <li><%= url.url %></li>
-  <% end %>
+<ol>
+  <% @dataset.sorted_urls.each do |url, count| %>
+    <li><%= url %> : <%= count %> request(s)</li>
+  <%end %>
 </ol>
-
-<div id="user_agents">
-  <% @source.user_agents.each do |user_agent| %>
-    <h3><%= user_agent.browser %></h3>
-    <h3><%= user_agent.operating_system %></h3>
-  <% end %>
-</div>
-
-<div id="responded_ins">
-  <% @source.responded_ins.each do |responded_in| %>
-    <h3><%= responded_in.responded_in %></h3>
-  <% end %>
-</div>
 
 </body>
