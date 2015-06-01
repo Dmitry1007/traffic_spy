@@ -7,6 +7,13 @@ class ClientViewsUrlsTest < FeatureTest
 
     assert page.has_content? "Welcome to TrafficSpy"
   end
+  
+  def test_error_page_for_unregistered_source
+    create_source("jumpstartlab", "http//jumpstartlab.com")
+    visit '/sources/unregistered'
+    
+    assert page.has_content? "Well, that wasn't supposed to happen!"
+  end
 
   def test_dashboard_includes_urls_from_known_source
     create_source("jumpstartlab", "http//jumpstartlab.com")
@@ -98,30 +105,5 @@ class ClientViewsUrlsTest < FeatureTest
     assert page.has_content? "Most popular browsers"
     assert page.has_content? "Most popular operating systems"
   end
-
-  def test_event_page_exists
-    create_source("jumpstartlab", "http//jumpstartlab.com")
-    create_payloads
-    visit '/sources/jumpstartlab/events'
-
-    assert page.has_content? "Event breakdown"
-  end
-
-  def test_event_page_has_event_links
-    create_source("jumpstartlab", "http//jumpstartlab.com")
-    create_payloads
-    visit '/sources/jumpstartlab/events'
-
-    assert find_link('socialLogin')
-  end
-
-  def test_event_link_works
-    create_source("jumpstartlab", "http//jumpstartlab.com")
-    create_payloads
-    visit '/sources/jumpstartlab/events'
-    click_link('socialLogin')
-
-    assert page.has_content? 'Hourly event breakdown:'
-    assert page.has_content? 'Number of times received:'
-  end
 end
+
