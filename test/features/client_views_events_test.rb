@@ -37,22 +37,22 @@ class ClientViewsEventsTest < FeatureTest
   end
   
   def test_return_to_index_page_link_exists_on_error_page
-    skip
+
     create_source("jumpstartlab", "http//jumpstartlab.com")
     create_payloads
     visit '/sources/jumpstartlab/events/fakeevent'
 
-    assert find_link('<< Events index')
+    assert find('.event-redirect', visible: false)
   end
   
   def test_the_return_to_index_page_returns_user_to_events_index
-    skip
+
     create_source("jumpstartlab", "http//jumpstartlab.com")
     create_payloads
     visit '/sources/jumpstartlab/events/fakeevent'
-    click_link('<< Events index')
+    find('.event-redirect', visible: false).click
 
-    assert page.has_content? 'Hourly event breakdown:'
-    assert page.has_content? 'Number of times received:'
+    assert page.has_content? "Event breakdown"
+
   end
 end
