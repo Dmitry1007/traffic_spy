@@ -10,7 +10,7 @@ module TrafficSpy
       source = Source.new({identifier: params[:identifier], root_url: params[:rootUrl]})
       if source.save
         @status = 200
-        @body = {"identifier":"#{source.identifier}"}.to_json
+        @body = {"identifier" => "#{source.identifier}"}.to_json
       else
         review(source)
       end

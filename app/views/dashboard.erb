@@ -1,4 +1,3 @@
-<body>
 <h1 id="greeting">
   Welcome to TrafficSpy!
 </h1>
@@ -6,7 +5,9 @@
 <h3>Url breakdown:</h3>
 <ol>
   <% @dataset.urls_sorted.each do |url, count| %>
-    <li><a href="<%= @dataset.path(url) %>"><%= url %></a> : <%= count %> request(s)</li>
+  
+    <li><a href="<%= @dataset.path(url) %>" data-reveal-id="myModal" data-reveal-ajax="<%= @dataset.path(url) %>"> <%= url %></a> : <%= count %> request(s)</li>
+  
   <%end %>
 </ol>
 
@@ -38,4 +39,7 @@
   <% end %>
 </ul>
 
-</body>
+
+<div id="myModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog"> 
+  <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+</div>
