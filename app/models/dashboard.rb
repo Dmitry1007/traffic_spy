@@ -11,38 +11,58 @@ module TrafficSpy
     def identifier
       source.identifier
     end
+  
+    def payloads
+      source.payloads
+    end
     
-    def view
+    def url_view
       if source
         :dashboard
       else
         :identifier_error
       end
     end
+  
+    def event_view
+      if source.payloads.map{ |payload| payload[:event_name] }.empty?
+        :event_error
+      else
+        :eventpage_individual
+      end
+    end
     
     def urls_sorted
-      source.payloads.group(:url).order('count_url desc').count(:url)
+      payloads.group(:url).order('count_url desc').count(:url)
     end
     
     def breakdown_of_browser
-      source.payloads.group(:browser).order('count_browser desc').count(:browser)
+      payloads.group(:browser).order('count_browser desc').count(:browser)
     end
     
     def breakdown_of_operating_system
-      source.payloads.group(:operating_system).order('count_operating_system desc').count(:operating_system)
+      payloads.group(:operating_system).order('count_operating_system desc').count(:operating_system)
     end
     
     def breakdown_of_resolution
-      source.payloads.group(:resolution).order('count_resolution desc').count(:resolution)
+      payloads.group(:resolution).order('count_resolution desc').count(:resolution)
     end
     
     def breakdown_of_avg_url_response_times
-      source.payloads.group(:url).order('average_responded_in desc').average(:responded_in)
+      payloads.group(:url).order('average_responded_in desc').average(:responded_in)
     end
     
-    def path(url)
+    def url_path(url)
       uri = URI(url)
       "/sources/#{source.identifier}/urls/#{uri.path}"
+    end
+    
+    def events_sorted
+      payloads.group(:event_name).order('event_name desc').count(:event_name)
+    end
+
+    def event_path(event)
+      "/sources/#{source.identifier}/events/#{event}"
     end
   end
 end

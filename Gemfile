@@ -6,7 +6,7 @@ gem 'activerecord'
 gem 'sinatra-activerecord'
 gem 'json'
 gem 'user_agent_parser'
-gem 'useragent'
+gem 'groupdate'
 
 group :development, :test do
   gem 'shotgun'
@@ -15,7 +15,6 @@ group :development, :test do
   gem 'capybara'
   gem 'launchy'
   gem 'rack-test'
-  gem 'useragent'
   gem 'database_cleaner'
   gem 'pry'
 end

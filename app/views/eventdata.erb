@@ -1,0 +1,19 @@
+<body>
+
+<h1>Event details for <%= @event_name %>:</h1>
+
+<div>
+  <h3>Number of times received:</h3>
+  <p>Received <%= @total_received %> times.</p>
+</div>
+
+<div>
+  <h3>Hourly event breakdown:</h3>
+  <ol>
+    <%@hourly_events.each do |time, count| %>
+      <li><%= time %>: <%= count %></li>
+    <% end %>  
+  </ol>
+</div>
+
+</body>

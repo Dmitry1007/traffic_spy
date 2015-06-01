@@ -1,0 +1,6 @@
+<h3>Resolution breakdown:</h3>
+<ul>
+  <% @dataset.breakdown_of_resolution.each do |resolution, count| %>
+    <li><%= resolution %> : <%= count %> time(s)</li>
+  <% end %>
+</ul>
