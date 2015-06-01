@@ -112,3 +112,4 @@ class ModelTest < Minitest::Test
     DatabaseCleaner.clean
   end
 end
+

@@ -49,22 +49,22 @@ class ClientViewsUrlsTest < FeatureTest
   end
 
   def test_url_breakdown_link_is_present
-    skip
+
     create_source("jumpstartlab", "http=>//jumpstartlab.com")
     create_payloads
     visit '/sources/jumpstartlab'
 
-    assert find_link('url-link')
+    find('.url-breakdown-link')
   end
 
   def test_url_breakdown_link_displays_breakdown_information_for_that_url
-    skip
+
     create_source("jumpstartlab", "http=>//jumpstartlab.com")
     create_payloads
     visit '/sources/jumpstartlab'
-    click_link('url-link')
 
-    assert page.has_content? "Here's the data about that url:"
+    find('.url-breakdown-link', visible: false).click
+
     assert page.has_content? "Longest response time:"
     assert page.has_content? "Shortest response time:"
     assert page.has_content? "Average response time:"
@@ -75,23 +75,21 @@ class ClientViewsUrlsTest < FeatureTest
   end
 
   def test_url_average_response_link_is_present
-    skip
+
     create_source("jumpstartlab", "http=>//jumpstartlab.com")
     create_payloads
     visit '/sources/jumpstartlab'
-
-    assert find_link('url-link')
+    find('.url-average-response-link')
   end
 
   def test_url_averages_link_displays_average_information_for_that_url
-    skip
+
     create_source("jumpstartlab", "http=>//jumpstartlab.com")
     create_payloads
     visit '/sources/jumpstartlab'
-    click_link('url-link')
-    
 
-    assert page.has_content? "Data for http://jumpstartlab.com/blog"
+    find('.url-average-response-link', visible: false).click
+
     assert page.has_content? "Longest response time:"
     assert page.has_content? "Shortest response time:"
     assert page.has_content? "Average response time:"
@@ -99,5 +97,31 @@ class ClientViewsUrlsTest < FeatureTest
     assert page.has_content? "Most popular referrers:"
     assert page.has_content? "Most popular browsers"
     assert page.has_content? "Most popular operating systems"
+  end
+
+  def test_event_page_exists
+    create_source("jumpstartlab", "http=>//jumpstartlab.com")
+    create_payloads
+    visit '/sources/jumpstartlab/events'
+
+    assert page.has_content? "Event breakdown"
+  end
+
+  def test_event_page_has_event_links
+    create_source("jumpstartlab", "http=>//jumpstartlab.com")
+    create_payloads
+    visit '/sources/jumpstartlab/events'
+
+    assert find_link('socialLogin')
+  end
+
+  def test_event_link_works
+    create_source("jumpstartlab", "http=>//jumpstartlab.com")
+    create_payloads
+    visit '/sources/jumpstartlab/events'
+    click_link('socialLogin')
+
+    assert page.has_content? 'Hourly event breakdown:'
+    assert page.has_content? 'Number of times received:'
   end
 end
