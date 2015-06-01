@@ -45,7 +45,7 @@ class DashboardTest < ModelTest
     create_payloads
     
     assert_equal Hash, source.payloads.group(:resolution).order('count_resolution desc').count(:resolution).class
-    assert_equal "{\"1920 x 1280\":1,\"1640 x 1480\":1,\"1240 x 1860\":1}", source.payloads.group(:resolution).order('count_resolution desc').count(:resolution).to_json
+    assert_equal 3, source.payloads.group(:resolution).order('count_resolution desc').count(:resolution).size
   end
   
   def test_it_can_return_an_avg_response_times_breakdown
