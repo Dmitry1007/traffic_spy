@@ -52,7 +52,7 @@ module TrafficSpy
       @identifier = identifier
       @event_name = event_name
       if @source.total_events_received(event_name) == 0
-        erb :every_error
+        erb :individual_event_error
       else
         @hourly_events = @source.hourly_events(event_name)
         @total_received   = @source.total_events_received(event_name)
